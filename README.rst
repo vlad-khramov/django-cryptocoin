@@ -14,3 +14,9 @@ Quick Start
 2. Add to INSTALLED_APPS in your `settings.py`:
 
         'django-cryptocoin',
+
+
+Example
+=======
+
+https://github.com/quantum13/django-crypto-paid-chat
