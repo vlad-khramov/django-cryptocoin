@@ -42,7 +42,7 @@ CONFIRMATIONS = getattr(
 
 PROCESS_TEMPLATE = getattr(
     settings,
-    "CURRENCIES",
+    "PROCESS_TEMPLATE",
     'django_cryptocoin/process.html'
 )
 
@@ -51,6 +51,13 @@ INVOICE_TIME = getattr(
     "INVOICE_TIME",
     600
 )
+
+GENERATED_ADDRESSES_ACCOUNT = getattr(
+    settings,
+    "GENERATED_ADDRESSES_ACCOUNT",
+    'django_cryptocoin'
+)
+
 
 
 #currency pairs for which will retrieved exchange rate from btc-e

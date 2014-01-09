@@ -2,7 +2,7 @@ import httplib
 import json
 from django.core.management.base import BaseCommand
 from django_cryptocoin.models import ExchangeRate
-from django_cryptocoin.settings import CURRENCY_PAIRS
+from django_cryptocoin import settings
 
 
 class Command(BaseCommand):
@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        for pair in CURRENCY_PAIRS:
+        for pair in settings.CURRENCY_PAIRS:
             currencies = pair.split('_')
             conn = httplib.HTTPSConnection("btc-e.com")
             conn.request("GET", "/api/2/%s/ticker" % pair)

@@ -1,17 +1,16 @@
 import json
 from django.http import HttpResponse
-from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django_cryptocoin.models import CryptoOrder
-from django_cryptocoin.settings import PROCESS_TEMPLATE, CRYPTO_COINS, INVOICE_TIME, CONFIRMATIONS
+from django_cryptocoin import settings
 
 
 def process(request, addr):
     order = get_object_or_404(CryptoOrder, addr=addr)
 
-    return render(request, PROCESS_TEMPLATE, {
+    return render(request, settings.PROCESS_TEMPLATE, {
         'order': order,
-        'confirmations': CONFIRMATIONS[order.currency]
+        'confirmations': settings.CONFIRMATIONS[order.currency]
     })
 
 

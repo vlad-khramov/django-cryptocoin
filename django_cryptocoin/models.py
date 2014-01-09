@@ -1,9 +1,7 @@
 from django.db import models
-from django.db.models.signals import post_init
-from django.dispatch import receiver
 from django.utils import timezone
 from bitcoinrpc.authproxy import AuthServiceProxy
-import settings
+from django_cryptocoin import settings
 
 
 class CryptoOrder(models.Model):
@@ -28,7 +26,7 @@ class CryptoOrder(models.Model):
                 raise Exception("Connection string for %s is not defined" % self.currency)
             try:
                 access = AuthServiceProxy(settings.CONNECTION_STRING[self.currency])
-                self.addr = access.getnewaddress('django_cryptocoin')
+                self.addr = access.getnewaddress(settings.GENERATED_ADDRESSES_ACCOUNT)
             except Exception, e:
                 raise Exception("Could not connect to crypto coin daemon")
 

@@ -1,6 +1,6 @@
 <style type="text/css">
     .cryptocoin_containter {
-        width:670px;
+        width:720px;
         margin: 50px auto;
         border: 1px solid #c9c9c9;
         padding: 20px;
@@ -9,8 +9,8 @@
         min-height: 260px;
     }
 
-    .cryptocoin_containter img {
-        float: left;
+    .cryptocoin_containter table {
+        width:100%;
     }
 
     .cryptocoin_text {
@@ -19,7 +19,7 @@
     }
 
     .cryptocoin_addr {
-        font-size: 19px;
+        font-size: 18px;
         margin-top: 30px;
         margin-bottom: 30px;
         font-weight: bold;
@@ -28,14 +28,23 @@
 
 <div class="cryptocoin_containter">
     {% if order.seconds_remains > 10 %}
-    <img src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl={{ order.currency_full|lower }}:{{ order.addr }}?amount={{ order.amount }}">
-    <div class="cryptocoin_text">
-        Send <b>{{ order.amount }}</b> {{ order.currency|upper }}
-        <br>
-        to address
-        <div class="cryptocoin_addr">{{ order.addr }}</div>
-        <span id="time_remains"></span>
-    </div>
+        <table>
+            <tr>
+                <td>
+                    <img src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl={{ order.currency_full|lower }}:{{ order.addr }}?amount={{ order.amount }}">
+                </td>
+                <td>
+                    <div class="cryptocoin_text">
+                        Send <b>{{ order.amount }}</b> {{ order.currency|upper }}
+                        <br>
+                        to address
+                        <div class="cryptocoin_addr">{{ order.addr }}</div>
+                        <span id="time_remains"></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
     {% else %}
         <div class="cryptocoin_text">
             This invoice has expired

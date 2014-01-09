@@ -1,5 +1,4 @@
-global-exclude *.pyc
 include LICENSE
-include README.rst
 include requirements.txt
+include README.rst
 recursive-include django_cryptocoin/templates *

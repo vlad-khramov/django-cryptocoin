@@ -2,3 +2,5 @@
 *.pot
 *.pyc
 .idea/*
+dist/*
+*.egg-info
