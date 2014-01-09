@@ -35,8 +35,8 @@ CONFIRMATIONS = getattr(
     "CONFIRMATIONS",
     {
         'btc': 1,
-        'ltc': 2,
-        'nvc': 3,
+        'ltc': 1,
+        'nvc': 1,
     }
 )
 
@@ -49,7 +49,7 @@ PROCESS_TEMPLATE = getattr(
 INVOICE_TIME = getattr(
     settings,
     "INVOICE_TIME",
-    600
+    900
 )
 
 GENERATED_ADDRESSES_ACCOUNT = getattr(

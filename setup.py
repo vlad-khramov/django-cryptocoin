@@ -21,7 +21,7 @@ setup(
     description='A Django app to organize accepting bitcoin, litecoin, novacoin and other cryptocoins.',
     long_description=README,
     url='https://github.com/quantum13/django-cryptocoin',
-    requires=["South (>0.7.4)"],
+    requires=["South>=0.8.4"],
     author='Vladimir Khramov',
     author_email='hr.vlad@gmail.com',
 )
