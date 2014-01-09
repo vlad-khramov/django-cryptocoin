@@ -1,0 +1,90 @@
+<style type="text/css">
+    .cryptocoin_containter {
+        width:670px;
+        margin: 50px auto;
+        border: 1px solid #c9c9c9;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 3px;
+        min-height: 260px;
+    }
+
+    .cryptocoin_containter img {
+        float: left;
+    }
+
+    .cryptocoin_text {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .cryptocoin_addr {
+        font-size: 19px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="cryptocoin_containter">
+    {% if order.seconds_remains > 10 %}
+    <img src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl={{ order.currency_full|lower }}:{{ order.addr }}?amount={{ order.amount }}">
+    <div class="cryptocoin_text">
+        Send <b>{{ order.amount }}</b> {{ order.currency|upper }}
+        <br>
+        to address
+        <div class="cryptocoin_addr">{{ order.addr }}</div>
+        <span id="time_remains"></span>
+    </div>
+    {% else %}
+        <div class="cryptocoin_text">
+            This invoice has expired
+        </div>
+    {% endif %}
+
+    <div style="clear: both"></div>
+</div>
+
+<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+    var $j = jQuery.noConflict();
+    var seconds_remains = {{ order.seconds_remains }};
+    var amount_needed = {{ order.amount }};
+    var redirect_to = '{{ order.redirect_to }}';
+    var confirmations = {{ confirmations }};
+
+    set_remains_time();
+    setInterval(function () {
+        seconds_remains-=1;
+        if(seconds_remains > 0) {
+            set_remains_time();
+        } else {
+            $j('.cryptocoin_containter').html('<div class="cryptocoin_text">This invoice has expired</div>');
+        }
+
+    }, 1000);
+
+    setInterval(function () {
+        $j.getJSON(
+            '{% url 'cryptocoin-order-check-status' order.addr %}',
+            function(data) {
+                seconds_remains = data.seconds_remains;
+                if(data.received_confirmed>=amount_needed) {
+                    $j('.cryptocoin_containter').html('<div class="cryptocoin_text">Thank you. We already begun to process your order.</div>');
+                    setTimeout(function () {document.location = redirect_to;}, 6000);
+                } else if(data.received>=amount_needed) {
+                    $j('.cryptocoin_containter').html('<div class="cryptocoin_text">Thank you. After '+ confirmations +' network confirmations we process your order.</div>');
+                    setTimeout(function () {document.location = redirect_to;}, 6000);
+                }
+                console.log(data);
+            }
+        );
+    }, 30000);
+
+    function set_remains_time() {
+        $j('#time_remains').text(
+                'in ' + Math.floor(seconds_remains/60) +
+                ':' + (seconds_remains%60<10?'0':'') + seconds_remains%60
+        );
+    }
+</script>
