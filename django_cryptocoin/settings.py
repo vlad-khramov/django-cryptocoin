@@ -7,6 +7,7 @@ CRYPTO_COINS = getattr(
         'btc': 'Bitcoin',
         'ltc': 'Litecoin',
         'nvc': 'Novacoin',
+        'emc': 'Emercoin',
     }
 )
 
@@ -17,6 +18,7 @@ CONNECTION_STRING = getattr(
         'btc': 'http://user:pass@localhost:8332',
         'ltc': 'http://user:pass@localhost:9332',
         'nvc': 'http://user:pass@localhost:8344',
+        'emc': 'http://user:pass@localhost:8100',
     }
 )
 
@@ -27,6 +29,7 @@ MAIN_ADDR = getattr(
         'btc': 'your_bitcoin_addr_to_send_btc',
         'ltc': 'your_litecoin_addr_to_send_ltc',
         'nvc': 'your_novacoin_addr_to_send_nvc',
+        'emc': 'your_emercoin_addr_to_send_emc',
     }
 )
 
@@ -37,6 +40,7 @@ CONFIRMATIONS = getattr(
         'btc': 1,
         'ltc': 1,
         'nvc': 1,
+        'emc': 1,
     }
 )
 
